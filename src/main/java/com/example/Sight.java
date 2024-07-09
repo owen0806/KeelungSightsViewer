@@ -1,3 +1,5 @@
+package com.example;
+
 public class Sight implements java.io.Serializable {
     private String sightName;
     private String zone;
@@ -55,7 +57,7 @@ public class Sight implements java.io.Serializable {
     }
 
     public String toString() {
-        return ("Sight Name: " + getSightName() + "\n"
+        return ("com.example.Sight Name: " + getSightName() + "\n"
         + "Zone: " + getZone() + "\n"
         + "Category: " + getCategory() + "\n"
         + "PhotoURL: " + "\n" + getPhotoURL() + "\n"
