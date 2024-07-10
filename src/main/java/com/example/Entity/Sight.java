@@ -1,4 +1,4 @@
-package com.example;
+package com.example.Entity;
 
 public class Sight implements java.io.Serializable {
     private String sightName;
@@ -57,7 +57,7 @@ public class Sight implements java.io.Serializable {
     }
 
     public String toString() {
-        return ("com.example.Sight Name: " + getSightName() + "\n"
+        return ("Sight Name: " + getSightName() + "\n"
         + "Zone: " + getZone() + "\n"
         + "Category: " + getCategory() + "\n"
         + "PhotoURL: " + "\n" + getPhotoURL() + "\n"

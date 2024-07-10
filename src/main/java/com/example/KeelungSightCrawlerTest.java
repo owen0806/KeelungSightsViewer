@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.Entity.Sight;
+
 import java.io.IOException;
 
 public class KeelungSightCrawlerTest {
