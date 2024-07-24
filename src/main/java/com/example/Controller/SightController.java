@@ -18,6 +18,7 @@ public class SightController {
     public Sight[] getSight(
             @RequestParam(value = "zone", required = true) String zone
     ) throws IOException {
+        System.out.println("zone : " + zone);
         return sightService.getSightsByZone(zone);
     }
 }

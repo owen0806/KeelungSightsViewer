@@ -43,6 +43,7 @@ public class KeelungSightsCrawler {
         String address = doc.selectXpath("//*[@id=\"point_data\"]/div[1]/p/a/span").text();
         sight.setAddress(address);
 
+        System.out.println(sight);
         return sight;
     }
 

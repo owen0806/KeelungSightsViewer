@@ -14,7 +14,7 @@ function showCards(data) {
     data.forEach(element => {    
         cardID++;
         card_container.innerHTML += 
-        `<div class="col-4 my-3">
+        `<div class="col-12 col-md-4 my-3">
           <div class="card">
             <div class="card-header text-center">
               <h4 class="card-title">${element.sightName}</h4>

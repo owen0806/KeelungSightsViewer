@@ -16,14 +16,34 @@
 <body>
 <div class="container" id="container">
     <h1 class="text-center m-3">Keelung Sights Infomation</h1>
-    <div class="btn-group btn-group-lg d-flex">
-        <button class="btn btn-primary" onclick="fetchData('七堵')">七堵</button>
-        <button class="btn btn-primary" onclick="fetchData('中山')">中山</button>
-        <button class="btn btn-primary" onclick="fetchData('中正')">中正</button>
-        <button class="btn btn-primary" onclick="fetchData('仁愛')">仁愛</button>
-        <button class="btn btn-primary" onclick="fetchData('安樂')">安樂</button>
-        <button class="btn btn-primary" onclick="fetchData('信義')">信義</button>
-        <button class="btn btn-primary" onclick="fetchData('暖暖')">暖暖</button>
+    <div class="btn-group btn-group-lg d-flex" role="group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio1"
+               onclick="fetchData('七堵')">七堵</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio2"
+               onclick="fetchData('中山')">中山</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio3"
+               onclick="fetchData('中正')">中正</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio4"
+               onclick="fetchData('仁愛')">仁愛</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio5"
+               onclick="fetchData('安樂')">安樂</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio6"
+               onclick="fetchData('信義')">信義</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio7"
+               onclick="fetchData('暖暖')">暖暖</label>
     </div>
 </div>
 
