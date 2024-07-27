@@ -1,6 +1,12 @@
 package com.example.Entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "sights")
 public class Sight implements java.io.Serializable {
+    @Id
+    private String id;
     private String sightName;
     private String zone;
     private String category;

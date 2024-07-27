@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class KeelungSightsCrawler {
     private final Document document;
-    private final String[] regions = {"七堵", "中山", "中正", "仁愛", "安樂", "信義", "暖暖"};
+    public static final String[] regions = {"七堵", "中山", "中正", "仁愛", "安樂", "信義", "暖暖"};
 
     public KeelungSightsCrawler() throws IOException {
         String url = "https://www.travelking.com.tw/tourguide/taiwan/keelungcity/";
