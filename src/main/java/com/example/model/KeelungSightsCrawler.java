@@ -1,6 +1,6 @@
-package com.example;
+package com.example.model;
 
-import com.example.Entity.Sight;
+import com.example.entity.Sight;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class KeelungSightsCrawler {
     private final Document document;
@@ -30,24 +31,36 @@ public class KeelungSightsCrawler {
         sight.setZone(zone);
 
         String category = doc.selectXpath("//*[@id=\"point_area\"]/cite/span[1]/span[2]").text();
+        if(category.isEmpty()) {
+            category = "無";
+        }
         sight.setCategory(category);
 
         String photoURL = doc.selectXpath("//*[@id=\"galleria\"]/div[1]/div[1]/div/div[1]/div/img").attr("data-src");
+        if(photoURL.isEmpty()) {
+            photoURL = "https://www.travelking.com.tw/tourguide/images/map/CHI-City-network-216.jpg";
+        }
         sight.setPhotoURL(photoURL);
 
         Elements textDiv = doc.selectXpath("//*[@id=\"point_area\"]/div[4]");
         textDiv.select("div").remove();
         String description = textDiv.text();
+        if(description.isEmpty()) {
+            description = sightName;
+        }
         sight.setDescription(description);
 
         String address = doc.selectXpath("//*[@id=\"point_data\"]/div[1]/p/a/span").text();
+        if(address.isEmpty()) {
+            address = "基隆市" + zone + "區";
+        }
         sight.setAddress(address);
 
         System.out.println(sight);
         return sight;
     }
 
-    public Sight[] getItems(String region) throws IOException {
+    public List<Sight> getItems(String region) throws IOException {
         ArrayList<Sight> sights = new ArrayList<>();
         for (int i = 0; i < regions.length; i++) {
             if (region.equals(regions[i])) {
@@ -61,6 +74,6 @@ public class KeelungSightsCrawler {
                 break;
             }
         }
-        return sights.toArray(new Sight[0]);
+        return sights;
     }
 }

@@ -1,6 +1,6 @@
-package com.example.Repository;
+package com.example.repository;
 
-import com.example.Entity.Sight;
+import com.example.entity.Sight;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
