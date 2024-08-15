@@ -37,4 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 
-#application_secret.properties
+application_secret.properties
