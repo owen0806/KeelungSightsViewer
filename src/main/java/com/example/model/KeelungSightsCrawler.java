@@ -92,7 +92,6 @@ public class KeelungSightsCrawler {
         }
         sight.setAddress(address);
 
-        System.out.println(sight);
         return sight;
     }
 
@@ -107,7 +106,6 @@ public class KeelungSightsCrawler {
                 for(Element link : links) {
                     sights.add(getSight(link.attr("href")));
                 }
-
                 break;
             }
         }

@@ -2,7 +2,7 @@ FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /home/app
 COPY src ./src
 COPY pom.xml .
-RUN mvn /home/app/pom.xml clean package -DskipTests
+RUN mvn pom.xml clean package -DskipTests
 
 FROM openjdk:17-oracle
 WORKDIR /usr/local/lib

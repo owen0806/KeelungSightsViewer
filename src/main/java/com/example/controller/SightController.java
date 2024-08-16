@@ -24,7 +24,8 @@ public class SightController {
             @RequestParam(value = "zone", required = false) String zone
     ) {
         if(zone == null || !isValid(zone)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid zone parameter");
+            System.out.println("zone is not valid");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         List<Sight> sights = sightService.getSightsByZone(zone+"區");
