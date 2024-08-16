@@ -7,7 +7,6 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 import static com.example.model.KeelungSightsCrawler.regions;
@@ -18,18 +17,17 @@ public class SightService {
     private SightRepository sightRepository;
     private final KeelungSightsCrawler crawler;
 
-    public SightService() throws IOException {
+    public SightService() {
         crawler = new KeelungSightsCrawler();
     }
 
     @PostConstruct
-    public void init() throws IOException {
+    public void init() {
         sightRepository.deleteAll();
         for (String region : regions) {
             List<Sight> sights = crawler.getItems(region);
             sightRepository.saveAll(sights);
         }
-        System.out.println(sightRepository.count());
     }
 
     public List<Sight> getSightsByZone(String zone) {

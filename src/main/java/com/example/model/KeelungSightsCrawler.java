@@ -11,17 +11,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeelungSightsCrawler {
-    private final Document document;
+    private Document document;
     public static final String[] regions = {"七堵", "中山", "中正", "仁愛", "安樂", "信義", "暖暖"};
+    private final int maxRetry = 5;
+    private final int timeout = 20000;
 
-    public KeelungSightsCrawler() throws IOException {
+    public KeelungSightsCrawler() {
         String url = "https://www.travelking.com.tw/tourguide/taiwan/keelungcity/";
-        document = Jsoup.connect(url).timeout(0).get();
+
+        boolean success = false;
+        int retryCount = 0;
+        while (!success && retryCount < maxRetry) {
+            try {
+                document = Jsoup.connect(url).timeout(timeout).get();
+                success = true;
+                System.out.println("Successfully connected to " + url);
+            } catch (IOException e) {
+                retryCount++;
+                System.out.println("Crawler initial timeout. Retry attempt: " + retryCount);
+                if(retryCount >= maxRetry) {
+                    System.out.println("Max retry attempt reached.");
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
-    public Sight getSight(String link) throws IOException {
+    public Sight getSight(String link) {
         String url = "https://www.travelking.com.tw" + link;
-        Document doc = Jsoup.connect(url).timeout(0).get();
+        Document doc = null;
+
+        boolean success = false;
+        int retryCount = 0;
+        while(!success && retryCount < maxRetry) {
+            try{
+                doc = Jsoup.connect(url).timeout(timeout).get();
+                success = true;
+                System.out.println("Successfully connected to " + url);
+            } catch (IOException e) {
+                retryCount++;
+                System.out.println("Crawler request timeout. Retry attempt: " + retryCount);
+                if(retryCount >= maxRetry) {
+                    System.out.println("Max retry attempt reached.");
+                    System.out.println("Sights is missing.");
+                }
+            }
+        }
+
         Sight sight = new Sight();
 
         String sightName = doc.selectXpath("//*[@id=\"point_area\"]/h1/span").text();
@@ -60,7 +96,7 @@ public class KeelungSightsCrawler {
         return sight;
     }
 
-    public List<Sight> getItems(String region) throws IOException {
+    public List<Sight> getItems(String region) {
         ArrayList<Sight> sights = new ArrayList<>();
         for (int i = 0; i < regions.length; i++) {
             if (region.equals(regions[i])) {
@@ -71,6 +107,7 @@ public class KeelungSightsCrawler {
                 for(Element link : links) {
                     sights.add(getSight(link.attr("href")));
                 }
+
                 break;
             }
         }

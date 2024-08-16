@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.util.List;
+
+import static com.example.model.KeelungSightsCrawler.regions;
 
 @RestController
 public class SightController {
@@ -19,14 +21,23 @@ public class SightController {
 
     @GetMapping("/SightAPI")
     public ResponseEntity<List<Sight>> getSight(
-            @RequestParam(value = "zone", required = true) String zone
-    ) throws IOException {
+            @RequestParam(value = "zone", required = false) String zone
+    ) {
+        if(zone == null || !isValid(zone)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid zone parameter");
+        }
+
         List<Sight> sights = sightService.getSightsByZone(zone+"區");
-
-        if(sights.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
         System.out.println("zone : " + zone);
         return ResponseEntity.status(HttpStatus.OK).body(sights);
+    }
+
+    boolean isValid(String zone) {
+        for (String region : regions) {
+            if(zone.equals(region)){
+                return true;
+            }
+        }
+        return false;
     }
 }
