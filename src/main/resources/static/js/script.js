@@ -1,6 +1,6 @@
 const url = 'SightAPI?zone=';
 async function fetchData(zone) {
-    console.log(zone);
+    console.debug(zone);
     const res = await fetch(url + zone);
     const data = await res.json();
     showCards(data);
