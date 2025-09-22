@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+    mongodb:
+        image: mongo:7.0
+        container_name: keelung-sights-mongodb
+        restart: always
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+            MONGO_INITDB_DATABASE: sights
+            # Variables for mongo-init.js script
+            MONGODB_APP_USER: ${MONGODB_APP_USER}
+            MONGODB_APP_PASSWORD: ${MONGODB_APP_PASSWORD}
+        volumes:
+            - mongodb_data:/data/db
+            - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+        networks:
+            - keelung-sights-network
+
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: keelung-sights-app
+        restart: always
+        ports:
+            - "${PORT}:8080"
+        environment:
+            PORT: 8080
+            MONGODB_HOST: mongodb
+            MONGODB_PORT: 27017
+            MONGODB_USER: ${MONGODB_APP_USER}
+            MONGODB_PASSWORD: ${MONGODB_APP_PASSWORD}
+        depends_on:
+            - mongodb
+        networks:
+            - keelung-sights-network
+
+volumes:
+    mongodb_data:
+
+networks:
+    keelung-sights-network:
+        driver: bridge
